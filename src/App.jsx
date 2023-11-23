@@ -11,8 +11,7 @@ import Profile from "./pages/Profile";
 import FAQ from "./pages/faq";
 import Bar from "./pages/Charts/Bar";
 import Pie from "./pages/Charts/Pie";
-import Line from "./pages/Charts/Line";
-import Geography from "./pages/Charts/Geography";
+
 export default function App() {
   const [theme, colorMode] = useMode();
   return (
@@ -32,8 +31,6 @@ export default function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/bar" element={<Bar />} />
               <Route path="/pie" element={<Pie />} />
-              <Route path="/line" element={<Line />} />
-              <Route path="/geography" element={<Geography />} />
             </Routes>
           </main>
         </div>

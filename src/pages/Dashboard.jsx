@@ -2,15 +2,15 @@ import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { mockTransactions } from "../data/dummy";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
+import PaidIcon from "@mui/icons-material/Paid";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import PriceCheckRoundedIcon from "@mui/icons-material/PriceCheckRounded";
 import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../components/Header";
 import LineChart from "../components/LineChart";
-import GeographyChart from "../components/GeographyChart";
 import BarChart from "../components/BarChart";
 import StatBox from "../components/StatBox";
+import PieChart from "../components/PieChart";
 import ProgressCircle from "../components/ProgressCircle";
 export default function Dashboard() {
   const theme = useTheme();
@@ -18,22 +18,30 @@ export default function Dashboard() {
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome" />
+        <Header title="Dashboard" subtitle="Welcome to your dashboard" />
+        <Box>
+          <Button
+            sx={{
+              backgroundColor: colors.blueAccent[700],
+              color: colors.grey[100],
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+            }}
+          >
+            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
+            Download Reports
+          </Button>
+        </Box>
       </Box>
-      <Box>
-        <Button
-          sx={{
-            backgroundColor: colors.blueAccent[700],
-            color: colors.grey[100],
-            fontSize: "14px",
-            fontWeight: "bold",
-            padding: "10px 20px",
-          }}
-        >
-          <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-          Download Reports
-        </Button>
-        {/* ROW 1 */}
+      {/* Grid & Charts*/}
+      <Box
+        display="grid"
+        gridTemplateColumns="repeat(12, 1fr)"
+        gridAutoRows="140px"
+        gap="20px"
+      >
+        {/* Row 1 */}
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
@@ -42,17 +50,18 @@ export default function Dashboard() {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
-            progress="0.75"
-            increase="+14%"
+            title="$13,425"
+            subtitle="Amount Sent"
+            progress="0.43"
+            increase="+19.2%"
             icon={
-              <EmailIcon
+              <PaidIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
           />
         </Box>
+
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
@@ -61,10 +70,10 @@ export default function Dashboard() {
           justifyContent="center"
         >
           <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
-            progress="0.50"
-            increase="+21%"
+            title="24577"
+            subtitle="Monthly Sales"
+            progress="0.43"
+            increase="+19.2%"
             icon={
               <PointOfSaleIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -72,6 +81,7 @@ export default function Dashboard() {
             }
           />
         </Box>
+
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
@@ -80,12 +90,12 @@ export default function Dashboard() {
           justifyContent="center"
         >
           <StatBox
-            title="32,441"
-            subtitle="New Clients"
-            progress="0.30"
-            increase="+5%"
+            title="$461M"
+            subtitle="Net Amount"
+            progress="0.64"
+            increase="+48.7%"
             icon={
-              <PersonAddIcon
+              <PriceCheckRoundedIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -99,10 +109,10 @@ export default function Dashboard() {
           justifyContent="center"
         >
           <StatBox
-            title="1,325,134"
-            subtitle="Traffic Received"
-            progress="0.80"
-            increase="+43%"
+            title="1,324,563"
+            subtitle="Trffic Inbound"
+            progress="0.31"
+            increase="+9.2%"
             icon={
               <TrafficIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -110,8 +120,7 @@ export default function Dashboard() {
             }
           />
         </Box>
-
-        {/* ROW 2 */}
+        {/* Row 2 */}
         <Box
           gridColumn="span 8"
           gridRow="span 2"
@@ -120,7 +129,7 @@ export default function Dashboard() {
           <Box
             mt="25px"
             p="0 30px"
-            display="flex "
+            display="flex"
             justifyContent="space-between"
             alignItems="center"
           >
@@ -137,7 +146,7 @@ export default function Dashboard() {
                 fontWeight="bold"
                 color={colors.greenAccent[500]}
               >
-                $59,342.32
+                $23,455,122
               </Typography>
             </Box>
             <Box>
@@ -148,11 +157,10 @@ export default function Dashboard() {
               </IconButton>
             </Box>
           </Box>
-          <Box height="250px" m="-20px 0 0 0">
+          <Box height="250px" mt="-20px">
             <LineChart isDashboard={true} />
           </Box>
         </Box>
-        {/*Transaction */}
         <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -163,7 +171,6 @@ export default function Dashboard() {
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            borderBottom={`4px solid ${colors.primary[500]}`}
             colors={colors.grey[100]}
             p="15px"
           >
@@ -171,13 +178,13 @@ export default function Dashboard() {
               Recent Transactions
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => {
+          {mockTransactions.map((transaction, i) => (
             <Box
               key={`${transaction.txId}-${i}`}
               display="flex"
-              justifyContent="center"
+              justifyContent="space-between"
               alignItems="center"
-              borderBottom={`4px solid ${colors.primary[500]}`}
+              p="15px"
             >
               <Box>
                 <Typography
@@ -187,11 +194,7 @@ export default function Dashboard() {
                 >
                   {transaction.txId}
                 </Typography>
-                <Typography
-                  color={colors.greenAccent[500]}
-                  variant="h5"
-                  fontWeight="600"
-                >
+                <Typography color={colors.grey[100]}>
                   {transaction.user}
                 </Typography>
               </Box>
@@ -203,11 +206,10 @@ export default function Dashboard() {
               >
                 ${transaction.cost}
               </Box>
-            </Box>;
-          })}
+            </Box>
+          ))}
         </Box>
-
-        {/* ROW 3 */}
+        {/* Row 3 */}
         <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -231,18 +233,22 @@ export default function Dashboard() {
             >
               $48,352 revenue generated
             </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
+            <Typography mr="10vh">
+              <i>Misc included</i>
+            </Typography>
           </Box>
         </Box>
+
         <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
+          p="30px"
         >
           <Typography
             variant="h5"
             fontWeight="600"
-            sx={{ padding: "30px 30px 0 30px" }}
+            sx={{ p: "30px 30px 0 30px" }}
           >
             Sales Quantity
           </Typography>
@@ -261,10 +267,10 @@ export default function Dashboard() {
             fontWeight="600"
             sx={{ marginBottom: "15px" }}
           >
-            Geography Based Traffic
+            Country Based Traffic
           </Typography>
           <Box height="200px">
-            <GeographyChart isDashboard={true} />
+            <PieChart isDashboard={true} />
           </Box>
         </Box>
       </Box>
